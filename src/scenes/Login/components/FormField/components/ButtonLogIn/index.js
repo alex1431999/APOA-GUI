@@ -1,11 +1,17 @@
 import React from 'react'
 
-function ButtonLogIn() {
-  return (
-    <div className="ButtonLogIn">
-      <button>Log In</button>
-    </div>
-  )
+class ButtonLogIn extends React.Component {
+  handleClick(e) {
+    e.preventDefault();
+  }
+
+  render() {
+    return (
+      <div className="ButtonLogIn">
+        <button onClick={this.handleClick}>Log In</button>
+      </div>
+    )
+  }
 }
 
 export default ButtonLogIn;
