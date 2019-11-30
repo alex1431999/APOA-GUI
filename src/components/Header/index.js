@@ -5,13 +5,16 @@ import {
 
 import './styles.scss'
 
+import UsernameDisplay from './components/UsernameDisplay/index'
+
 function Header() {
   return (
     <div className="Header">
-      <nav>
-        <Link className="Header-Link" to="/">Home</Link>
-        <Link className="Header-Link" to="/Login">Login</Link>
+      <nav className="float-left">
+        <Link className="header-link" to="/">Home</Link>
+        <Link className="header-link" to="/Login">Login</Link>
       </nav>
+      <UsernameDisplay className="float-right"/>
     </div>
   )
 }
