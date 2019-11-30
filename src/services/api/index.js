@@ -1,3 +1,6 @@
+import store from '../../store'
+import { login } from './actions'
+
 class API {
   constructor() {
     this.url = process.env.REACT_APP_API_URL;
@@ -17,7 +20,11 @@ class API {
       body: JSON.stringify({ username, password }),
     }
 
-    const response = fetch(this.urlLogin, request);
+    const response = await fetch(this.urlLogin, request);
+
+    if (response.ok) {
+      store.dispatch(login(username));
+    }
 
     return response;
   }
