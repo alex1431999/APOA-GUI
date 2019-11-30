@@ -1,7 +1,18 @@
 import React from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 import Login from './scenes/Login/index'
 import App from './App'
+
+import store from './store'
+
+/* Taken from this article: https://tylermcginnis.com/react-router-protected-routes-authentication */
+const PrivateRoute = ({ component: Component, ...rest }) => (
+  <Route {...rest} render={(props) => (
+    store.getState().authenticator.username
+      ? <Component {...props} />
+      : <Redirect to='/login' />
+  )} />
+)
 
 const routes = (
     <Router>
