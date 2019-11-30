@@ -1,15 +1,43 @@
 import React from 'react'
-import ButtonLogIn from './components/ButtonLogIn'
 
-function FormField() {
-  return (
-    <div className="FormField">
-      <input type="text" placeholder="Username"/>
-      <br/>
-      <input type="password" placeholder="Password"/>
-      <ButtonLogIn/>
-    </div>
-  )
+import apiService from '../../../../services/api/index'
+
+class FormField extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      username: '',
+      password: '',
+    }
+
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.updateInputUsername = this.updateInputUsername.bind(this);
+    this.updateInputPassword = this.updateInputPassword.bind(this);
+  }
+
+  handleSubmit() {
+    apiService.login(this.state.username, this.state.password);
+  }
+
+  updateInputUsername(event) {
+    this.setState({ username: event.target.value })
+  }
+
+  updateInputPassword(event) {
+    this.setState({ password: event.target.value });
+  }
+
+  render() {
+    return (
+      <div className="FormField">
+        <input type="text" placeholder="Username" onChange={this.updateInputUsername}/>
+        <br/>
+        <input type="password" placeholder="Password" onChange={this.updateInputPassword}/>
+        <br/>
+        <button onClick={this.handleSubmit}>Log In</button>
+      </div>
+    )
+  }
 }
 
 export default FormField;
