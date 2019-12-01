@@ -10,15 +10,42 @@ class API {
     this.url = process.env.REACT_APP_API_URL;
     this.urlLogin = `${this.url}/login`;
     this.urlRefresh = `${this.url}/refresh`;
+
+    /* Keyword URLs */
+    this.urlKeywords = `${this.url}/keywords`;
   }
 
-  async sendRequest(request) {
-    let response = await fetch(request);
+  async getKeywords() {
+    const request = {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + this.account.accessToken,
+      }
+    }
+
+    const response = await this.sendRequest(this.urlKeywords, request);
+
+    let keywords = [];
+    if (response.ok) {
+      keywords = await response.json();
+    }
+
+    return keywords;
+  }
+
+  /**
+   * Send a request to the API server
+   * @param {string} url 
+   * @param {Object} request 
+   */
+  async sendRequest(url, request) {
+    let response = await fetch(url, request);
 
     /* Maybe the token is expired? */
     if (!response.ok) {
       await this.refresh();
-      response = await fetch(request);
+      response = await fetch(url, request);
     }
 
     return response;
