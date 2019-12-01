@@ -27,3 +27,17 @@ export function authenticator(state = null, action) {
         }
   }
 }
+
+export function keywordManager(state = null, action) {
+  switch (action.type) {
+    case 'SET-KEYWORDS':
+      return {
+        keywords: action.keywords,
+      }
+
+    default:
+      return {
+        keywords: []
+      }
+  }
+}

@@ -1,3 +1,10 @@
+export function setKeywords(keywords) {
+  return {
+    type: 'SET-KEYWORDS',
+    keywords,
+  }
+}
+
 export function login(username, accessToken, refreshToken) {
   localStorage.setItem('username', username);
   localStorage.setItem('accessToken', accessToken);

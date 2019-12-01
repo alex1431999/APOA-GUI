@@ -1,5 +1,5 @@
 import store from '../../store'
-import { login, logout, refresh } from './actions'
+import { login, logout, refresh, setKeywords } from './actions'
 
 class API {
   constructor() {
@@ -30,6 +30,8 @@ class API {
     if (response.ok) {
       keywords = await response.json();
     }
+
+    store.dispatch(setKeywords(keywords));
 
     return keywords;
   }
