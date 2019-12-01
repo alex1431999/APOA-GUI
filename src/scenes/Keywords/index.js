@@ -6,10 +6,14 @@ import KeywordList from './components/KeywordList/index'
 
 function Keywords() {
   return (
-    <div className="Keywords center-screen">
-      <KeywordAddForm/>
-      <KeywordSearch/>
-      <KeywordList/>
+    <div className="Keywords">
+      <div className="container">
+        <div className="jumbotron">
+          <KeywordAddForm/>
+          <KeywordSearch/>
+          <KeywordList/>
+        </div>
+      </div>
     </div>
   )
 }
