@@ -31,7 +31,11 @@ class API {
     const response = await fetch(this.urlLogin, request);
 
     if (response.ok) {
-      store.dispatch(login(username));
+      const body = await response.json();
+      const accessToken = body.access_token;
+      const refreshToken = body.refresh_token;
+      
+      store.dispatch(login(username, accessToken, refreshToken));
     }
 
     return response;
