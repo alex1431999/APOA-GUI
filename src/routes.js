@@ -1,7 +1,10 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
-import Login from './scenes/Login/index'
 import App from './App'
+
+/* Scenes */
+import Login from './scenes/Login/index'
+import Keywords from './scenes/Keywords/index'
 
 import store from './store'
 
@@ -18,6 +21,7 @@ const routes = (
     <Router>
       <Route path="/" component={App}/>
       <Route path="/login" component={Login}/>
+      <PrivateRoute exact path="/keywords" component={Keywords}/>
     </Router>
 );
 
