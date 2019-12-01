@@ -13,6 +13,11 @@ export function authenticator(state = null, action) {
         accessToken: null,
         refreshToken: null,
       }
+
+    case 'REFRSH':
+      return {
+        accessToken: action.accessToken,
+      }
     
     default:
         return {

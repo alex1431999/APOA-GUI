@@ -1,14 +1,27 @@
 import store from '../../store'
-import { login } from './actions'
+import { login, logout, refresh } from './actions'
 
 class API {
   constructor() {
-    this.username = store.getState().authenticator.username;
+    this.account = store.getState().authenticator;
 
-    store.subscribe(() => this.username = store.getState().authenticator.username);
+    store.subscribe(() => this.account = store.getState().authenticator);
 
     this.url = process.env.REACT_APP_API_URL;
     this.urlLogin = `${this.url}/login`;
+    this.urlRefresh = `${this.url}/refresh`;
+  }
+
+  async sendRequest(request) {
+    let response = await fetch(request);
+
+    /* Maybe the token is expired? */
+    if (!response.ok) {
+      await this.refresh();
+      response = await fetch(request);
+    }
+
+    return response;
   }
 
   /**
@@ -39,6 +52,32 @@ class API {
     }
 
     return response;
+  }
+
+  /**
+   * Refresh access token
+   */
+  async refresh() {
+    const request = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + this.account.refreshToken,
+      }
+    }
+
+    const response = await fetch(this.urlRefresh, request);
+
+    if (response.ok) {
+      const body = await response.json();
+      const accessToken = body.access_token;
+
+      store.dispatch(refresh(accessToken));
+    } else { // If the token is expired then you should log the user out
+      store.dispatch(logout);
+    }
+
+    return response.ok;
   }
 }
 
