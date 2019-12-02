@@ -10,6 +10,7 @@ function Keywords() {
       <div className="container">
         <div className="jumbotron">
           <KeywordAddForm/>
+          <br/>
           <KeywordSearch/>
           <KeywordList/>
         </div>
