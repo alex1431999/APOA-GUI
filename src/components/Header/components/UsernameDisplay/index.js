@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 import store from '../../../../store'
+import { logout } from '../../../../services/api/actions'
 
 class UsernameDisplay extends React.Component {
   constructor(props) {
@@ -15,14 +16,20 @@ class UsernameDisplay extends React.Component {
         username: store.getState().authenticator.username,
       })
     });
+
+    this.handleLogoutClick = this.handleLogoutClick.bind(this);
+  }
+
+  handleLogoutClick() {
+    store.dispatch(logout());
   }
 
   render() {
     if (this.state.username) {
       return (
-        <div className="UsernameDisplay float-right h4">
+        <div className="UsernameDisplay float-right">
           <span id="username">{this.state.username}</span>
-          <button className="btn btn-warning margin-left">Logout</button>
+          <button onClick={this.handleLogoutClick} className="btn btn-warning margin-left">Logout</button>
         </div>
       )
     } else {
