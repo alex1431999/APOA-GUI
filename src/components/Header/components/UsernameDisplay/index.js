@@ -29,11 +29,15 @@ class UsernameDisplay extends React.Component {
       return (
         <div className="UsernameDisplay float-right">
           <span id="username">{this.state.username}</span>
-          <button onClick={this.handleLogoutClick} className="btn btn-warning margin-left">Logout</button>
+          <button onClick={this.handleLogoutClick} className="btn btn-warning margin-left">Sign out</button>
         </div>
       )
     } else {
-      return <Link className="btn btn-warning" to="/Login">Login</Link>
+      return (
+        <div className="float-right">
+          <Link className="btn btn-warning" to="/Login">Sign in</Link>
+        </div>
+      )
     }
   }
 }
