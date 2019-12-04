@@ -1,11 +1,22 @@
 import React from 'react'
 
+import apiService from '../../../../services/api/index'
+
 class KeywordAddForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      languages: ['de', 'en'],
+      languages: [],
     }
+
+    this.setLanguages();
+  }
+
+  setLanguages() {
+    apiService.getLanguagesAvailable()
+      .then((languages) => {
+        this.setState({languages})
+      });
   }
 
   render() {
