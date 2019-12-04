@@ -21,8 +21,8 @@ class KeywordList extends React.Component {
       <div className="KeywordList">
         <ul className="list-group">
           {
-            this.state.keywords.map((keyword, key) => {
-              return <li className="list-group-item" key={key}>{keyword.keyword_string} ({keyword.language})</li>
+            this.state.keywords.map((keyword) => {
+              return <li className="list-group-item" key={keyword._id.$oid}>{keyword.keyword_string} ({keyword.language})</li>
             })
           }
         </ul>
