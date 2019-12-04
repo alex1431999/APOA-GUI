@@ -7,21 +7,23 @@ class API {
 
     store.subscribe(() => this.account = store.getState().authenticator);
 
-    this.url = process.env.REACT_APP_API_URL;
-    this.urlLogin = `${this.url}/login`;
-    this.urlRefresh = `${this.url}/refresh`;
+    this.urlRoot = process.env.REACT_APP_API_URL;
+    this.urlLogin = `${this.urlRoot}/login`;
+    this.urlRefresh = `${this.urlRoot}/refresh`;
 
     /* Keyword URLs */
-    this.urlKeywords = `${this.url}/keywords`;
+    this.urlKeywordRoot = 'keywords';
+    this.urlKeywords = `${this.urlRoot}/${this.urlKeywordRoot}`;
+
+    /* Keyword Language URLs */
+    this.urlLanguagesRoot = 'languages';
+    this.urlKeywordLanguagesAvailable = `${this.urlRoot}/${this.urlKeywordRoot}/${this.urlLanguagesRoot}/available`;
   }
 
   async getKeywords() {
     const request = {
       method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + this.account.accessToken,
-      }
+      headers: this.headers_default(),
     }
 
     const response = await this.sendRequest(this.urlKeywords, request);
@@ -34,6 +36,29 @@ class API {
     store.dispatch(setKeywords(keywords));
 
     return keywords;
+  }
+
+  async getLanguagesAvailable() {
+    const request = {
+      method: 'GET',
+      headers: this.headers_default()
+    }
+
+    const response = await this.sendRequest(this.urlKeywordLanguagesAvailable, request);
+
+    let languages = [];
+    if (response.ok) {
+      languages = await response.json();
+    }
+
+    return languages.sort();
+  }
+
+  headers_default() {
+    return {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + this.account.accessToken,
+    }
   }
 
   /**
