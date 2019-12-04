@@ -41,12 +41,12 @@ class KeywordAddForm extends React.Component {
     return (
       <div className="KeywordAddForm">
         <input type="text" placeholder="Keyword" onChange={this.handleInputKeywordChange}/>
-        <select onChange={this.handleSelectChange}>
+        <select className="margin-left" onChange={this.handleSelectChange}>
           {
             this.state.languages.map(language => <option value={language} key={language}>{language.toUpperCase()}</option> )
           }
         </select>
-        <button className="btn btn-success" onClick={this.handleButtonClick}>Add Keyword</button>
+        <button className="btn btn-success margin-left" onClick={this.handleButtonClick}>Add Keyword</button>
       </div>
     )
   }
