@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 import store from '../../../../store'
 
@@ -19,12 +20,13 @@ class UsernameDisplay extends React.Component {
   render() {
     if (this.state.username) {
       return (
-        <div className="UsernameDisplay float-right h3">
-          <span>{this.state.username}</span>
+        <div className="UsernameDisplay float-right h4">
+          <span id="username">{this.state.username}</span>
+          <button className="btn btn-warning margin-left">Logout</button>
         </div>
       )
     } else {
-      return null;
+      return <Link className="btn btn-warning" to="/Login">Login</Link>
     }
   }
 }
