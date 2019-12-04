@@ -35,7 +35,7 @@ class UsernameDisplay extends React.Component {
     } else {
       return (
         <div className="float-right">
-          <Link className="btn btn-warning" to="/Login">Sign in</Link>
+          <Link className="btn btn-warning" to="/login">Sign in</Link>
         </div>
       )
     }
