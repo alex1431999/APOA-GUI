@@ -32,9 +32,11 @@ class FormField extends React.Component {
       <div className="FormField">
         <input type="text" placeholder="Username" onChange={this.updateInputUsername}/>
         <br/>
+        <br/>
         <input type="password" placeholder="Password" onChange={this.updateInputPassword}/>
         <br/>
-        <button onClick={this.handleSubmit}>Log In</button>
+        <br/>
+        <button className="btn btn-warning" onClick={this.handleSubmit}>Log In</button>
       </div>
     )
   }

@@ -5,11 +5,20 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-image: url("background.jpg");
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+input {
+  background: rgba(255, 255, 255, 0.7);
+}
+
+select {
+  background: rgba(255, 255, 255, 0.7);
 }
 
 .center-screen {

@@ -10,9 +10,9 @@ import UsernameDisplay from './components/UsernameDisplay/index'
 function Header() {
   return (
     <div className="Header">
+      <Link className="btn btn-warning header-center" to="/">Home</Link>
+      <Link className="btn btn-warning" to="/Login">Login</Link>
       <UsernameDisplay/>
-      <Link className="header-link btn btn-primary" to="/">Home</Link>
-      <Link className="header-link btn btn-primary" to="/Login">Login</Link>
     </div>
   )
 }

@@ -46,7 +46,7 @@ class KeywordAddForm extends React.Component {
             this.state.languages.map(language => <option value={language} key={language}>{language.toUpperCase()}</option> )
           }
         </select>
-        <button className="btn btn-success margin-left" onClick={this.handleButtonClick}>Add Keyword</button>
+        <button className="btn btn-primary margin-left" onClick={this.handleButtonClick}>Add Keyword</button>
       </div>
     )
   }

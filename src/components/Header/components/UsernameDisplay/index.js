@@ -19,7 +19,9 @@ class UsernameDisplay extends React.Component {
   render() {
     if (this.state.username) {
       return (
-        <span>{this.state.username}</span>
+        <div className="UsernameDisplay float-right h3">
+          <span>{this.state.username}</span>
+        </div>
       )
     } else {
       return null;

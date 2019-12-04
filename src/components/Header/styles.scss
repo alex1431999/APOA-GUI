@@ -1,5 +1,10 @@
 .Header {
-  .header-link {
-    margin-left: 10%;
+  background-color: gray;
+  background: rgba(255, 165, 0, 0.3);
+  padding: 0.5%;
+
+  .header-center {
+    position: absolute;
+    right: 50%;
   }
 }
