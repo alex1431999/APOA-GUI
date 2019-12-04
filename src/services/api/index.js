@@ -12,12 +12,12 @@ class API {
     this.urlRefresh = `${this.urlRoot}/refresh`;
 
     /* Keyword URLs */
-    this.urlKeywordRoot = 'keywords';
-    this.urlKeywords = `${this.urlRoot}/${this.urlKeywordRoot}`;
+    this.urlKeywordRoot = `${this.urlRoot}/keywords`;
+    this.urlKeywords = `${this.urlKeywordRoot}`;
 
     /* Keyword Language URLs */
-    this.urlLanguagesRoot = 'languages';
-    this.urlKeywordLanguagesAvailable = `${this.urlRoot}/${this.urlKeywordRoot}/${this.urlLanguagesRoot}/available`;
+    this.urlLanguagesRoot = `${this.urlKeywordRoot}/languages`;
+    this.urlKeywordLanguagesAvailable = `${this.urlLanguagesRoot}/available`;
   }
 
   async getKeywords() {
@@ -36,6 +36,19 @@ class API {
     store.dispatch(setKeywords(keywords));
 
     return keywords;
+  }
+
+  async addKeyword(keyword, language) {
+    const request = {
+      method: 'POST',
+      headers: this.headers_default(),
+      body: JSON.stringify({keyword, language}),
+    }
+
+    await this.sendRequest(this.urlKeywords, request);
+
+    /* Refresh keywords */
+    return this.getKeywords();
   }
 
   async getLanguagesAvailable() {
