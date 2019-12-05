@@ -10,11 +10,8 @@ import UsernameDisplay from './components/UsernameDisplay/index'
 function Header() {
   return (
     <div className="Header">
-      <nav className="float-left">
-        <Link className="header-link" to="/">Home</Link>
-        <Link className="header-link" to="/Login">Login</Link>
-      </nav>
-      <UsernameDisplay className="float-right"/>
+      <Link className="btn btn-warning header-center" to="/">Home</Link>
+      <UsernameDisplay/>
     </div>
   )
 }
