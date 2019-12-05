@@ -5,6 +5,13 @@ export function setKeywords(keywords) {
   }
 }
 
+export function deleteKeyword(_id) {
+  return {
+    type: 'DELETE-KEYWORD',
+    _id,
+  }
+}
+
 export function login(username, accessToken, refreshToken) {
   localStorage.setItem('username', username);
   localStorage.setItem('accessToken', accessToken);

@@ -35,6 +35,11 @@ export function keywordManager(state = null, action) {
         keywords: action.keywords,
       }
 
+    case 'DELETE-KEYWORD':
+      return {
+        keywords: state.keywords.filter(keyword => keyword._id.$oid !== action._id),
+      }
+
     default:
       return {
         keywords: []

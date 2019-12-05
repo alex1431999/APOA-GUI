@@ -1,5 +1,5 @@
 import store from '../../store'
-import { login, logout, refresh, setKeywords } from './actions'
+import { login, logout, refresh, setKeywords, deleteKeyword } from './actions'
 
 class API {
   constructor() {
@@ -23,7 +23,7 @@ class API {
   async getKeywords() {
     const request = {
       method: 'GET',
-      headers: this.headers_default(),
+      headers: this.headersDefault(),
     }
 
     const response = await this.sendRequest(this.urlKeywords, request);
@@ -41,7 +41,7 @@ class API {
   async addKeyword(keyword, language) {
     const request = {
       method: 'POST',
-      headers: this.headers_default(),
+      headers: this.headersDefault(),
       body: JSON.stringify({keyword, language}),
     }
 
@@ -51,10 +51,23 @@ class API {
     return this.getKeywords();
   }
 
+  async deleteKeyword(_id) {
+    const request = {
+      method: 'DELETE',
+      headers: this.headersDefault(),
+    }
+
+    const url = `${this.urlKeywords}/${_id}`
+    
+    this.sendRequest(url, request);
+
+    store.dispatch(deleteKeyword(_id));
+  }
+
   async getLanguagesAvailable() {
     const request = {
       method: 'GET',
-      headers: this.headers_default()
+      headers: this.headersDefault()
     }
 
     const response = await this.sendRequest(this.urlKeywordLanguagesAvailable, request);
@@ -67,7 +80,7 @@ class API {
     return languages.sort();
   }
 
-  headers_default() {
+  headersDefault() {
     return {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + this.account.accessToken,
