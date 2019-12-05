@@ -116,9 +116,9 @@ class API {
       const refreshToken = body.refresh_token;
       
       store.dispatch(login(username, accessToken, refreshToken));
+    } else {
+      throw new Error('unable to log in');
     }
-
-    return response;
   }
 
   /**

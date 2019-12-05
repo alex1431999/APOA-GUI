@@ -1,4 +1,5 @@
 import React from 'react'
+import { withRouter } from 'react-router-dom'
 
 import apiService from '../../../../services/api/index'
 
@@ -16,7 +17,13 @@ class FormField extends React.Component {
   }
 
   handleSubmit() {
-    apiService.login(this.state.username, this.state.password);
+    apiService.login(this.state.username, this.state.password)
+      .then(() => {
+        this.props.history.push('/keywords/');
+      })
+      .catch(() => {
+        alert('Wrong password / username');
+      });
   }
 
   updateInputUsername(event) {
@@ -42,4 +49,4 @@ class FormField extends React.Component {
   }
 }
 
-export default FormField;
+export default withRouter(FormField);
