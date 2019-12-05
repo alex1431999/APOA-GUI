@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 
 import store from '../../../../store'
 import { logout } from '../../../../services/api/actions'
@@ -22,6 +22,7 @@ class UsernameDisplay extends React.Component {
 
   handleLogoutClick() {
     store.dispatch(logout());
+    this.props.history.push('/login');
   }
 
   render() {
@@ -42,4 +43,4 @@ class UsernameDisplay extends React.Component {
   }
 }
 
-export default UsernameDisplay
+export default withRouter(UsernameDisplay)
