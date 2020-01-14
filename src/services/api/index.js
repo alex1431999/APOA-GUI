@@ -38,6 +38,22 @@ class API {
     return keywords;
   }
 
+  async getKeyword(_id) {
+    const request = {
+      method: 'GET',
+      headers: this.headersDefault(),
+    }
+
+    const response = await this.sendRequest(`${this.urlKeywords}/${_id}`, request);
+
+    let keyword = null;
+    if (response.ok) {
+      keyword = response.json();
+    }
+
+    return keyword;
+  }
+
   async addKeyword(keyword, language) {
     const request = {
       method: 'POST',
