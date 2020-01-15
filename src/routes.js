@@ -20,6 +20,9 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
 
 const routes = (
     <Router>
+      <Route exact path="/">
+        {<Redirect to="/keywords"/>}
+      </Route>
       <Route path="/" component={App}/>
       <Route path="/login" component={Login}/>
       <PrivateRoute exact path="/keywords" component={Keywords}/>
