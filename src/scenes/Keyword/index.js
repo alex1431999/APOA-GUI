@@ -1,6 +1,7 @@
 import React from 'react'
 
 import KeywordDetails from './components/KeywordDetails/index'
+import ScoreGraph from './components/ScoreGraph/index'
 
 import './styles.scss'
 
@@ -21,6 +22,8 @@ class Keyword extends React.Component {
         <div className="container">
           <div className="jumbotron">
             <KeywordDetails _id={this.state._id}></KeywordDetails>
+            <br/>
+            <ScoreGraph keywordId={this.state._id}></ScoreGraph>
           </div>
         </div>
       </div>
