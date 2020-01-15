@@ -25,7 +25,7 @@ class KeywordList extends React.Component {
             this.state.keywords.map((keyword) => {
               return( 
                 <li className="list-group-item" key={keyword._id.$oid}>
-                  {keyword.keyword_string} ({keyword.language})
+                  <a href={'/keywords/' + keyword._id.$oid}>{keyword.keyword_string} ({keyword.language})</a>
                   <ButtonDeleteKeyword _id={keyword._id.$oid}/>
                 </li>
               )

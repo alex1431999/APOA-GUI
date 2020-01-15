@@ -4,6 +4,7 @@ import App from './App'
 
 /* Scenes */
 import Login from './scenes/Login/index'
+import Keyword from './scenes/Keyword/index'
 import Keywords from './scenes/Keywords/index'
 
 import store from './store'
@@ -22,6 +23,7 @@ const routes = (
       <Route path="/" component={App}/>
       <Route path="/login" component={Login}/>
       <PrivateRoute exact path="/keywords" component={Keywords}/>
+      <PrivateRoute exact path="/keywords/:_id" component={Keyword}/> 
     </Router>
 );
 
