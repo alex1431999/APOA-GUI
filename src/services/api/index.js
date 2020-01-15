@@ -18,6 +18,9 @@ class API {
     /* Keyword Language URLs */
     this.urlLanguagesRoot = `${this.urlKeywordRoot}/languages`;
     this.urlKeywordLanguagesAvailable = `${this.urlLanguagesRoot}/available`;
+
+    /* Crawls URLs */
+    this.urlCrawlsRoot = `${this.urlRoot}/crawls`;
   }
 
   async getKeywords() {
@@ -44,7 +47,9 @@ class API {
       headers: this.headersDefault(),
     }
 
-    const response = await this.sendRequest(`${this.urlKeywords}/${_id}`, request);
+    const url = `${this.urlKeywords}/${_id}`;
+
+    const response = await this.sendRequest(url, request);
 
     let keyword = null;
     if (response.ok) {
@@ -78,6 +83,24 @@ class API {
     this.sendRequest(url, request);
 
     store.dispatch(deleteKeyword(_id));
+  }
+
+  async getCrawlsPlottingData(keywordId) {
+    const request = {
+      method: 'GET',
+      headers: this.headersDefault(),
+    }
+
+    const url = `${this.urlCrawlsRoot}/${keywordId}/plotting_data`;
+
+    const response = await this.sendRequest(url, request);
+
+    let plottingData = null;
+    if (response.ok) {
+      plottingData = response.json();
+    }
+
+    return plottingData;
   }
 
   async getLanguagesAvailable() {
