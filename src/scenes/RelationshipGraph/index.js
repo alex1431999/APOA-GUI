@@ -109,6 +109,7 @@ class RelationshipGraph extends React.Component {
       <div className="ScoreGraph text-center">
         <ForceGraph3D
           graphData={this.state.data}
+          backgroundColor='#cd8400'
         >
 
         </ForceGraph3D>
