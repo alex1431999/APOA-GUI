@@ -1,5 +1,7 @@
 import React from 'react'
 
+import { Link } from 'react-router-dom'
+
 import KeywordDetails from './components/KeywordDetails/index'
 import ScoreGraph from './components/ScoreGraph/index'
 
@@ -21,6 +23,7 @@ class Keyword extends React.Component {
       <div className="Keywords">
         <div className="container">
           <div className="jumbotron">
+            <Link className="btn btn-warning" to={`/keywords/${this.state._id}/graph`}>Show Graph</Link>
             <KeywordDetails _id={this.state._id}></KeywordDetails>
             <br/>
             <ScoreGraph keywordId={this.state._id}></ScoreGraph>

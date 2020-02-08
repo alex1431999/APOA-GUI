@@ -6,6 +6,7 @@ import App from './App'
 import Login from './scenes/Login/index'
 import Keyword from './scenes/Keyword/index'
 import Keywords from './scenes/Keywords/index'
+import RelationshipGraph from './scenes/RelationshipGraph/index'
 
 import store from './store'
 
@@ -27,6 +28,7 @@ const routes = (
       <Route path="/login" component={Login}/>
       <PrivateRoute exact path="/keywords" component={Keywords}/>
       <PrivateRoute exact path="/keywords/:_id" component={Keyword}/> 
+      <PrivateRoute exact path="/keywords/:_id/graph" component={RelationshipGraph}/>
     </Router>
 );
 

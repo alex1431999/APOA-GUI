@@ -119,6 +119,24 @@ class API {
     return languages.sort();
   }
 
+  async getEntities(keywordId, limit) {
+    const request = {
+      method: 'GET',
+      headers: this.headersDefault(),
+    }
+
+    const url = `${this.urlKeywords}/${keywordId}/graph/entities?limit=${limit}`;
+
+    const response = await this.sendRequest(url, request);
+
+    let entities = [];
+    if (response.ok) {
+      entities = await response.json();
+    }
+
+    return entities;
+  }
+
   headersDefault() {
     return {
       'Content-Type': 'application/json',
