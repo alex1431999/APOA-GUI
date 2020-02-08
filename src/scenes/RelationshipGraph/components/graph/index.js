@@ -4,6 +4,8 @@ import { ForceGraph3D } from 'react-force-graph'
 
 import apiService from '../../../../services/api/index'
 
+import './styles.scss'
+
 class Graph extends React.Component {
   constructor(props) {
     super(props);

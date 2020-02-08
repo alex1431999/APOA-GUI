@@ -1,6 +1,7 @@
 import React from 'react'
 
-import Graph from './components/graph/index'
+import Graph from './components/Graph/index'
+import Menu from './components/Menu/index'
 
 class RelationshipGraph extends React.Component {
   constructor(props) {
@@ -16,6 +17,7 @@ class RelationshipGraph extends React.Component {
   render() {
     return (
       <div className="RelationshipGraph">
+        <Menu></Menu>
         <Graph _id={this.state._id}></Graph>
       </div>
     )
