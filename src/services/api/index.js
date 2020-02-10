@@ -137,6 +137,24 @@ class API {
     return entities;
   }
 
+  async getCategories(keywordId, limit) {
+    const request = {
+      method: 'GET',
+      headers: this.headersDefault(),
+    }
+
+    const url = `${this.urlKeywords}/${keywordId}/graph/categories?limit=${limit}`;
+
+    const response = await this.sendRequest(url, request);
+
+    let categories = [];
+    if (response.ok) {
+      categories = await response.json();
+    }
+
+    return categories;
+  }
+
   headersDefault() {
     return {
       'Content-Type': 'application/json',

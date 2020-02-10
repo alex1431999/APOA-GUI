@@ -30,6 +30,7 @@ class RelationshipGraph extends React.Component {
   componentDidMount() {
     /* Request graph data */
     this.requestEntities(this.state._id, this.state.entitiesMax);
+    this.requestCategories(this.state._id, this.state.categoriesMax);
   }
 
   requestEntities(_id, limit) {
@@ -42,6 +43,18 @@ class RelationshipGraph extends React.Component {
       .catch((err) => {
         console.log(err);
       });
+  }
+
+  requestCategories(_id, limit) {
+    apiService.getCategories(_id, limit)
+    .then((categories) => {
+      const categoriesDisplayed = categories.slice(0, this.state.categoriesAmount);
+
+      this.setState({ categories, categoriesDisplayed });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
   }
 
   setEntitiesAmount(amount) {
@@ -70,6 +83,7 @@ class RelationshipGraph extends React.Component {
 
         <Graph
         entities={this.state.entitiesDisplayed}
+        categories={this.state.categoriesDisplayed}
         key={this.state.entitiesDisplayed.length + this.state.categoriesDisplayed.length}
         ></Graph>
       </div>

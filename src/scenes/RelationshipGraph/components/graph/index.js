@@ -8,7 +8,7 @@ class Graph extends React.Component {
   constructor(props) {
     super(props);
 
-    const { entities } = props;
+    const { entities, categories } = props;
 
     /* Data has to be serpate from the state, since the state acts async */
     this.data = { nodes: [], links: [] };
@@ -16,6 +16,7 @@ class Graph extends React.Component {
     this.state = {
       data: { nodes: [], links: [] },
       entities,
+      categories,
     }
   }
 
@@ -29,7 +30,17 @@ class Graph extends React.Component {
 
       const keywordNode = this.addKeyword(keyword);
       const entityNode = this.addEntity(entity, mentionedWith.count, mentionedWith.score);
+
       this.createLink(keywordNode.id, entityNode.id);
+    }
+
+    for (let i = 0; i < this.state.categories.length; i += 1) {
+      const { keyword, category, mentionedWith } = this.state.categories[i];
+      
+      const keywordNode = this.addKeyword(keyword);
+      const categoryNode = this.addCategory(category, mentionedWith.count);
+
+      this.createLink(keywordNode.id, categoryNode.id);
     }
   }
 
@@ -52,6 +63,20 @@ class Graph extends React.Component {
       name: entity.entity_string,
       val: count,
       color: score > 0 ? '00ff00' : 'ff0000',
+    };
+
+    this.addNode(node);
+
+    return node;
+  }
+
+  addCategory(category, count) {
+    console.log(category);
+    const node = {
+      id: category.category_string,
+      name: category.category_string,
+      val: count,
+      color: 'ffff00',
     };
 
     this.addNode(node);
