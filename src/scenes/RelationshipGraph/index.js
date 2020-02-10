@@ -11,13 +11,32 @@ class RelationshipGraph extends React.Component {
 
     this.state = {
       _id,
+      entitiesAmount: 10,
+      categoriesAmount: 10,
     }
+
+    this.setEntitiesAmount = this.setEntitiesAmount.bind(this);
+    this.setCategoriesAmount = this.setCategoriesAmount.bind(this);
+  }
+
+  setEntitiesAmount(amount) {
+    this.setState({ entitiesAmount: amount });
+  }
+
+  setCategoriesAmount(amount) {
+    this.setState({ categoriesAmount: amount });
   }
 
   render() {
     return (
       <div className="RelationshipGraph">
-        <Menu></Menu>
+        <Menu
+        entitiesAmount={this.state.entitiesAmount}
+        categoriesAmount={this.state.categoriesAmount}
+        setEntitiesAmount={this.setEntitiesAmount}
+        setCategoriesAmount={this.setCategoriesAmount}
+        ></Menu>
+
         <Graph _id={this.state._id}></Graph>
       </div>
     )
