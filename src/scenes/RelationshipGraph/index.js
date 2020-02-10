@@ -11,6 +11,8 @@ class RelationshipGraph extends React.Component {
 
     this.state = {
       _id,
+      entitiesMax: 50,
+      categoriesMax: 50,
       entitiesAmount: 10,
       categoriesAmount: 10,
     }
@@ -31,6 +33,8 @@ class RelationshipGraph extends React.Component {
     return (
       <div className="RelationshipGraph">
         <Menu
+        entitiesMax={this.state.entitiesMax}
+        categoriesMax={this.state.categoriesMax}
         entitiesAmount={this.state.entitiesAmount}
         categoriesAmount={this.state.categoriesAmount}
         setEntitiesAmount={this.setEntitiesAmount}

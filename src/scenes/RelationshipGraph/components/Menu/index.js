@@ -8,11 +8,16 @@ class Menu extends React.Component {
   constructor(props) {
     super(props);
 
-    const { entitiesAmount, categoriesAmount } = this.props;
+    const {
+      entitiesMax,
+      entitiesAmount,
+      categoriesMax,
+      categoriesAmount,
+    } = this.props;
 
     this.state = {
-      maxEntities: 100,
-      maxCategories: 100,
+      entitiesMax,
+      categoriesMax,
       entitiesAmount,
       categoriesAmount,
     }
@@ -49,7 +54,7 @@ class Menu extends React.Component {
           type="range" 
           className="custom-range" 
           id="entityRange" min="0" 
-          max={this.state.maxEntities} 
+          max={this.state.entitiesMax} 
           value={this.state.entitiesAmount}
           onChange={this.handleEntitiesChange}>
 
@@ -61,7 +66,7 @@ class Menu extends React.Component {
           className="custom-range" 
           id="categoryRange" 
           min="0" 
-          max={this.state.maxCategories}
+          max={this.state.categoriesMax}
           value={this.state.categoriesAmount}
           onChange={this.handleCategoriesChange}>
 
