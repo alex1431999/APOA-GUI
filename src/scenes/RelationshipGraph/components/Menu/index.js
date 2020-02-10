@@ -35,7 +35,7 @@ class Menu extends React.Component {
   setCategoriesAmount(amount) {
     /* Apply change in amount to this state and parent state */
     this.setState({ categoriesAmount: amount });
-    this.props.setEntitiesAmount(amount);
+    this.props.setCategoriesAmount(amount);
   }
 
   handleEntitiesChange(event) {
