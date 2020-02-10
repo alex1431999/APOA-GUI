@@ -3,6 +3,8 @@ import React from 'react'
 import Graph from './components/Graph/index'
 import Menu from './components/Menu/index'
 
+import apiService from '../../services/api/index'
+
 class RelationshipGraph extends React.Component {
   constructor(props) {
     super(props);
@@ -15,18 +17,43 @@ class RelationshipGraph extends React.Component {
       categoriesMax: 50,
       entitiesAmount: 10,
       categoriesAmount: 10,
+      entities: [],
+      entitiesDisplayed: [],
+      categories: [],
+      categoriesDisplayed: [],
     }
 
     this.setEntitiesAmount = this.setEntitiesAmount.bind(this);
     this.setCategoriesAmount = this.setCategoriesAmount.bind(this);
   }
 
+  componentDidMount() {
+    /* Request graph data */
+    this.requestEntities(this.state._id, this.state.entitiesMax);
+  }
+
+  requestEntities(_id, limit) {
+    apiService.getEntities(_id, limit)
+      .then((entities) => {
+        const entitiesDisplayed = entities.slice(0, this.state.entitiesAmount);
+
+        this.setState({ entities, entitiesDisplayed });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
   setEntitiesAmount(amount) {
-    this.setState({ entitiesAmount: amount });
+    const entitiesDisplayed = this.state.entities.slice(0, amount);
+
+    this.setState({ entitiesAmount: amount, entitiesDisplayed });
   }
 
   setCategoriesAmount(amount) {
-    this.setState({ categoriesAmount: amount });
+    const categoriesDisplayed = this.state.categories.slice(0, amount);
+
+    this.setState({ categoriesAmount: amount, categoriesDisplayed });
   }
 
   render() {
@@ -41,7 +68,10 @@ class RelationshipGraph extends React.Component {
         setCategoriesAmount={this.setCategoriesAmount}
         ></Menu>
 
-        <Graph _id={this.state._id}></Graph>
+        <Graph
+        entities={this.state.entitiesDisplayed}
+        key={this.state.entitiesDisplayed.length + this.state.categoriesDisplayed.length}
+        ></Graph>
       </div>
     )
   }

@@ -2,41 +2,35 @@ import React from 'react'
 
 import { ForceGraph3D } from 'react-force-graph'
 
-import apiService from '../../../../services/api/index'
-
 import './styles.scss'
 
 class Graph extends React.Component {
   constructor(props) {
     super(props);
 
-    const { _id } = props;
+    const { entities } = props;
 
-    const limit = 20; // Hardcoded for now
-
-    this.requestData(_id, limit);
+    /* Data has to be serpate from the state, since the state acts async */
+    this.data = { nodes: [], links: [] };
 
     this.state = {
-      _id,
       data: { nodes: [], links: [] },
+      entities,
     }
   }
 
-  requestData(_id, limit) {
-    apiService.getEntities(_id, limit)
-      .then((data) => {
-        for (let i = 0; i < data.length; i += 1) {
-          const { keyword, entity, mentionedWith } = data[i];
+  componentDidMount() {
+    this.constructGraph();
+  }
 
-          const keywordNode = this.addKeyword(keyword);
-          const entityNode = this.addEntity(entity, mentionedWith.count, mentionedWith.score);
-          
-          this.createLink(keywordNode.id, entityNode.id);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+  constructGraph() {
+    for (let i = 0; i < this.state.entities.length; i += 1) {
+      const { keyword, entity, mentionedWith } = this.state.entities[i];
+
+      const keywordNode = this.addKeyword(keyword);
+      const entityNode = this.addEntity(entity, mentionedWith.count, mentionedWith.score);
+      this.createLink(keywordNode.id, entityNode.id);
+    }
   }
 
   addKeyword(keyword) {
@@ -66,44 +60,31 @@ class Graph extends React.Component {
   }
 
   addNode(node) {
-    const nodeIds = this.state.data.nodes.map(e => e.id);
+    const nodeIds = this.data.nodes.map(e => e.id);
     const isAlreadyInGraph = nodeIds.includes(node.id);
 
     if (!isAlreadyInGraph) {
-      this.setState({
-        data: { 
-          nodes: [...this.state.data.nodes, node],
-          links: this.state.data.links,
-        }
-      });
+      this.data.nodes.push(node);
     } else { // When the node already exists, just add the value of the new node on top
-      const newNodes = [...this.state.data.nodes];
+      const nodes = this.data.nodes;
 
       /* Add the value of the current node on top of the inserted node */
-      for (let i = 0; i < newNodes.length; i += 1) {
-        if (newNodes[i].id === node.id) {
-          newNodes[i].val += node.val;
+      for (let i = 0; i < nodes.length; i += 1) {
+        if (nodes[i].id === node.id) {
+          nodes[i].val += node.val;
         }
       }
-
-      this.setState((prevState) => ({
-        data: {
-          nodes: newNodes,
-          links: prevState.data.links,
-        }
-      }));
     }
+
+    this.setState({ data: this.data });
   }
 
   createLink(source, target) {
     const link = { source, target };
 
-    this.setState({
-      data: { 
-        nodes: this.state.data.nodes,
-        links: [...this.state.data.links, link],
-      }
-    });
+    this.data.links.push(link);
+
+    this.setState({ data: this.data });
   }
 
   render() {
