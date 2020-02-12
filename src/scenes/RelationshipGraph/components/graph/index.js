@@ -71,7 +71,6 @@ class Graph extends React.Component {
   }
 
   addCategory(category, count) {
-    console.log(category);
     const node = {
       id: category.category_string,
       name: category.category_string,
