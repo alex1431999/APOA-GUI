@@ -17,10 +17,9 @@ class RelationshipGraph extends React.Component {
       categoriesMax: 50,
       entitiesAmount: 10,
       categoriesAmount: 10,
-      entities: [],
-      entitiesDisplayed: [],
-      categories: [],
-      categoriesDisplayed: [],
+      keywords: [],
+      keywordsDisplayed: [],
+      refresh: false,
     }
 
     this.setEntitiesAmount = this.setEntitiesAmount.bind(this);
@@ -28,45 +27,49 @@ class RelationshipGraph extends React.Component {
   }
 
   componentDidMount() {
-    /* Request graph data */
-    this.requestEntities(this.state._id, this.state.entitiesMax);
-    this.requestCategories(this.state._id, this.state.categoriesMax);
+    this.requestKeyword(this.state._id);
   }
 
-  requestEntities(_id, limit) {
-    apiService.getEntities(_id, limit)
-      .then((entities) => {
-        const entitiesDisplayed = entities.slice(0, this.state.entitiesAmount);
+  async requestKeyword(_id) {
+    const keywordRequest = apiService.getKeyword(_id);
+    const entitiesRequest = apiService.getEntities(_id, this.state.entitiesMax);
+    const categoriesRequest = apiService.getCategories(_id, this.state.categoriesMax);
 
-        this.setState({ entities, entitiesDisplayed });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    const keyword = await keywordRequest;
+    const entities = await entitiesRequest;
+    const categories = await categoriesRequest;
+
+    /* Remove keyword from entities and categories */
+    entities.forEach(entitiy => delete entitiy.keyword);
+    categories.forEach(category => delete category.keyword);
+
+    keyword.entities = entities;
+    keyword.categories = categories;
+
+    // Append keyword
+    this.setState({ keywords: [...this.state.keywords, keyword] }, this.setKeywordsDisplayed);
   }
 
-  requestCategories(_id, limit) {
-    apiService.getCategories(_id, limit)
-    .then((categories) => {
-      const categoriesDisplayed = categories.slice(0, this.state.categoriesAmount);
+  setKeywordsDisplayed() {
+    const keywordsDisplayed = [];
+    for (let i = 0; i < this.state.keywords.length; i += 1) {
+      const keyword = JSON.parse(JSON.stringify(this.state.keywords[i]));
 
-      this.setState({ categories, categoriesDisplayed });
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+      keyword.entities = keyword.entities.slice(0, this.state.entitiesAmount);
+      keyword.categories = keyword.categories.slice(0, this.state.categoriesAmount);
+
+      keywordsDisplayed.push(keyword);
+    }
+
+    this.setState({ keywordsDisplayed, refresh: true }, () => this.setState({ refresh: false }));
   }
 
   setEntitiesAmount(amount) {
-    const entitiesDisplayed = this.state.entities.slice(0, amount);
-
-    this.setState({ entitiesAmount: amount, entitiesDisplayed });
+    this.setState({ entitiesAmount: amount }, this.setKeywordsDisplayed);
   }
 
   setCategoriesAmount(amount) {
-    const categoriesDisplayed = this.state.categories.slice(0, amount);
-
-    this.setState({ categoriesAmount: amount, categoriesDisplayed });
+    this.setState({ categoriesAmount: amount }, this.setKeywordsDisplayed);
   }
 
   render() {
@@ -82,9 +85,8 @@ class RelationshipGraph extends React.Component {
         ></Menu>
 
         <Graph
-        entities={this.state.entitiesDisplayed}
-        categories={this.state.categoriesDisplayed}
-        key={this.state.entitiesDisplayed.length + this.state.categoriesDisplayed.length}
+        keywords={this.state.keywordsDisplayed}
+        key={this.state.refresh}
         ></Graph>
       </div>
     )

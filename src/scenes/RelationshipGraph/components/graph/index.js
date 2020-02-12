@@ -8,15 +8,14 @@ class Graph extends React.Component {
   constructor(props) {
     super(props);
 
-    const { entities, categories } = props;
+    const { keywords } = props;
 
     /* Data has to be serpate from the state, since the state acts async */
     this.data = { nodes: [], links: [] };
 
     this.state = {
       data: { nodes: [], links: [] },
-      entities,
-      categories,
+      keywords,
     }
   }
 
@@ -25,6 +24,24 @@ class Graph extends React.Component {
   }
 
   constructGraph() {
+    for (let i = 0; i < this.state.keywords.length; i += 1) {
+      const keyword = this.state.keywords[i];
+
+      const keywordNode = this.addKeyword(keyword);
+
+      keyword.entities.forEach(({ entity, mentionedWith}) => {
+        const entityNode = this.addEntity(entity, mentionedWith.count, mentionedWith.score);
+        this.createLink(keywordNode.id, entityNode.id);
+      });
+
+      keyword.categories.forEach(({ category, mentionedWith }) => {
+        const categoryNode = this.addCategory(category, mentionedWith.count);
+        this.createLink(keywordNode.id, categoryNode.id);
+      });
+    }
+  }
+
+  constructGraph___() {
     for (let i = 0; i < this.state.entities.length; i += 1) {
       const { keyword, entity, mentionedWith } = this.state.entities[i];
 
@@ -46,9 +63,9 @@ class Graph extends React.Component {
 
   addKeyword(keyword) {
     const node = {
-      id: keyword._id,
+      id: keyword._id.$oid,
       name: keyword.keyword_string,
-      val: 10,
+      val: 100,
       color: '0000ff',
     };
 
