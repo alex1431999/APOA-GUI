@@ -1,6 +1,6 @@
 import React from 'react'
 
-import ButtonDeleteKeyword from './components/ButtonDeleteKeyword/index.js'
+import ButtonDeleteKeyword from './components/ButtonDeleteKeyword/index'
 import apiService from '../../../../services/api/index'
 import store from '../../../../store'
 
