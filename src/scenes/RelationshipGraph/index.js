@@ -22,6 +22,7 @@ class RelationshipGraph extends React.Component {
       refresh: false,
     }
 
+    this.requestKeyword = this.requestKeyword.bind(this);
     this.setEntitiesAmount = this.setEntitiesAmount.bind(this);
     this.setCategoriesAmount = this.setCategoriesAmount.bind(this);
   }
@@ -82,6 +83,7 @@ class RelationshipGraph extends React.Component {
         categoriesAmount={this.state.categoriesAmount}
         setEntitiesAmount={this.setEntitiesAmount}
         setCategoriesAmount={this.setCategoriesAmount}
+        addKeyword={this.requestKeyword}
         ></Menu>
 
         <Graph

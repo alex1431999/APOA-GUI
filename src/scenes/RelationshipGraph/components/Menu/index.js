@@ -71,7 +71,11 @@ class Menu extends React.Component {
           onChange={this.handleCategoriesChange}>
 
           </input>
-        <AddKeywordButton></AddKeywordButton>
+        <AddKeywordButton
+          addKeyword={this.props.addKeyword}
+        >
+
+        </AddKeywordButton>
       </div>
     );
   }
