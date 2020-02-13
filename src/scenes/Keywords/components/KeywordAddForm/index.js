@@ -39,7 +39,7 @@ class KeywordAddForm extends React.Component {
 
   render() {
     return (
-      <div className="KeywordAddForm">
+      <div className="KeywordAddForm float-left">
         <input type="text" placeholder="Keyword" onChange={this.handleInputKeywordChange}/>
         <select className="margin-left" onChange={this.handleSelectChange}>
           {
