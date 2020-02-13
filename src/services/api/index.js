@@ -33,7 +33,7 @@ class API {
 
     let keywords = [];
     if (response.ok) {
-      keywords = await response.json();
+      keywords = (await response.json()).sort((a, b) => a.keyword_string > b.keyword_string ? 1 : -1);
     }
 
     store.dispatch(setKeywords(keywords));
@@ -117,6 +117,42 @@ class API {
     }
 
     return languages.sort();
+  }
+
+  async getEntities(keywordId, limit) {
+    const request = {
+      method: 'GET',
+      headers: this.headersDefault(),
+    }
+
+    const url = `${this.urlKeywords}/${keywordId}/graph/entities?limit=${limit}`;
+
+    const response = await this.sendRequest(url, request);
+
+    let entities = [];
+    if (response.ok) {
+      entities = await response.json();
+    }
+
+    return entities;
+  }
+
+  async getCategories(keywordId, limit) {
+    const request = {
+      method: 'GET',
+      headers: this.headersDefault(),
+    }
+
+    const url = `${this.urlKeywords}/${keywordId}/graph/categories?limit=${limit}`;
+
+    const response = await this.sendRequest(url, request);
+
+    let categories = [];
+    if (response.ok) {
+      categories = await response.json();
+    }
+
+    return categories;
   }
 
   headersDefault() {
