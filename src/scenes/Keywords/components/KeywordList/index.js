@@ -4,6 +4,8 @@ import ButtonDeleteKeyword from './components/ButtonDeleteKeyword/index'
 import apiService from '../../../../services/api/index'
 import store from '../../../../store'
 
+import './styles.scss'
+
 class KeywordList extends React.Component {
   constructor(props) {
     super(props);
