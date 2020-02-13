@@ -31,6 +31,7 @@ class AddKeywordButton extends React.Component {
 
     this.handleOnChangeSelect = this.handleOnChangeSelect.bind(this);
     this.handleOnClickButton = this.handleOnClickButton.bind(this);
+    this.handleOnKeyDownSelect = this.handleOnKeyDownSelect.bind(this);
   }
 
   handleOnChangeSelect(value) {
@@ -47,6 +48,12 @@ class AddKeywordButton extends React.Component {
     this.props.addKeyword(_id);
   }
 
+  handleOnKeyDownSelect(event) {
+    if (event.key === 'Enter') {
+      this.handleOnClickButton();
+    }
+  }
+
   render() {
     return (
       <div className="AddKeywordButton">
@@ -55,6 +62,7 @@ class AddKeywordButton extends React.Component {
           value={this.state.selectedKeyword}
           options={this.state.keywords}
           onChange={this.handleOnChangeSelect}
+          onKeyDown={this.handleOnKeyDownSelect}
         />
         <button 
           type="button" 
