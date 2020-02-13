@@ -2,7 +2,7 @@ import React from 'react'
 
 import ButtonDeleteKeyword from './components/ButtonDeleteKeyword/index.js'
 import apiService from '../../../../services/api/index'
-import store from '../../../../store';
+import store from '../../../../store'
 
 class KeywordList extends React.Component {
   constructor(props) {
