@@ -33,7 +33,7 @@ class API {
 
     let keywords = [];
     if (response.ok) {
-      keywords = await response.json();
+      keywords = (await response.json()).sort((a, b) => a.keyword_string > b.keyword_string ? 1 : -1);
     }
 
     store.dispatch(setKeywords(keywords));
