@@ -30,34 +30,16 @@ class Graph extends React.Component {
       const keywordNode = this.addKeyword(keyword);
 
       keyword.entities.forEach(({ entity, mentionedWith}) => {
-        const entityNode = this.addEntity(entity, mentionedWith.count, mentionedWith.score);
-        this.createLink(keywordNode.id, entityNode.id);
+        const { score, count } = mentionedWith;
+        const entityNode = this.addEntity(entity, count, score);
+        this.createLink(keywordNode.id, entityNode.id, score);
       });
 
       keyword.categories.forEach(({ category, mentionedWith }) => {
-        const categoryNode = this.addCategory(category, mentionedWith.count);
-        this.createLink(keywordNode.id, categoryNode.id);
+        const { count } = mentionedWith;
+        const categoryNode = this.addCategory(category, count);
+        this.createLink(keywordNode.id, categoryNode.id, 1);
       });
-    }
-  }
-
-  constructGraph___() {
-    for (let i = 0; i < this.state.entities.length; i += 1) {
-      const { keyword, entity, mentionedWith } = this.state.entities[i];
-
-      const keywordNode = this.addKeyword(keyword);
-      const entityNode = this.addEntity(entity, mentionedWith.count, mentionedWith.score);
-
-      this.createLink(keywordNode.id, entityNode.id);
-    }
-
-    for (let i = 0; i < this.state.categories.length; i += 1) {
-      const { keyword, category, mentionedWith } = this.state.categories[i];
-      
-      const keywordNode = this.addKeyword(keyword);
-      const categoryNode = this.addCategory(category, mentionedWith.count);
-
-      this.createLink(keywordNode.id, categoryNode.id);
     }
   }
 
@@ -120,8 +102,12 @@ class Graph extends React.Component {
     this.setState({ data: this.data });
   }
 
-  createLink(source, target) {
-    const link = { source, target };
+  createLink(source, target, score) {
+    const link = { 
+      source, 
+      target, 
+      color: score > 0 ? '00ff00' : 'ff0000',
+    };
 
     this.data.links.push(link);
 
@@ -134,6 +120,8 @@ class Graph extends React.Component {
         <ForceGraph3D
           graphData={this.state.data}
           backgroundColor='#cd8400'
+          linkWidth={3}
+          linkOpacity={0.5}
         >
 
         </ForceGraph3D>
