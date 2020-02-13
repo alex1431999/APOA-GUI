@@ -58,7 +58,7 @@ class AddKeywordButton extends React.Component {
     return (
       <div className="AddKeywordButton">
         <Select
-          name="university"
+          name="keyword"
           value={this.state.selectedKeyword}
           options={this.state.keywords}
           onChange={this.handleOnChangeSelect}
