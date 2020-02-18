@@ -1,8 +1,6 @@
 import React from 'react'
 
 import ButtonDeleteKeyword from './components/ButtonDeleteKeyword/index'
-import apiService from '../../../../services/api/index'
-import store from '../../../../store'
 
 import './styles.scss'
 
@@ -11,12 +9,8 @@ class KeywordList extends React.Component {
     super(props);
 
     this.state = {
-      keywords: []
+      keywords: this.props.keywords,
     }
-
-    store.subscribe(() => this.setState({keywords: store.getState().keywordManager.keywords}));
-
-    apiService.getKeywords();
   }
 
   render() {

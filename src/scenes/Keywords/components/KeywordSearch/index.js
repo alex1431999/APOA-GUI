@@ -4,11 +4,21 @@ class KeywordSearch extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {}
+    this.state = {
+      searchTerm: '',
+    }
+
+    this.handleOnChange = this.handleOnChange.bind(this);
   }
 
   handleOnChange(event) {
-    console.log(event.target.value);
+    const searchTerm = event.target.value;
+
+    this.setState({ searchTerm }, this.updateList);
+  }
+
+  updateList() {
+    this.props.search(this.state.searchTerm);
   }
 
 
@@ -18,6 +28,7 @@ class KeywordSearch extends React.Component {
         <input
           type="text"
           placeholder="Search..."
+          value={this.state.searchTerm}
           onChange={this.handleOnChange}>
         </input>
       </div>
