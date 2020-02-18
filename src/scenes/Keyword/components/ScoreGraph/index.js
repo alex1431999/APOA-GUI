@@ -1,8 +1,8 @@
 import React from 'react'
-import Loader from 'react-loader-spinner'
 import { LineChart } from 'react-chartkick'
 import 'chart.js'
 
+import BasicLoader from '../../../../components/BasicLoader/index'
 
 import apiService from '../../../../services/api/index'
 
@@ -30,14 +30,7 @@ class ScoreGraph extends React.Component {
   }
 
   render() {
-    const loader = <Loader
-      type="Triangle"
-      color="#FFA500"
-      height={100}
-      width={100}
-    />
-
-    let content = loader;
+    let content = <BasicLoader/>;
 
     if (this.state.plottingData) {
       /* Format data */
