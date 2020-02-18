@@ -172,7 +172,12 @@ class API {
 
     /* Maybe the token is expired? */
     if (!response.ok) {
-      await this.refresh();
+      const accessToken = await this.refresh();
+
+      // Override header with new access token
+      request.headers.Authorization = 'Bearer ' + accessToken;
+
+      // resend the request
       response = await fetch(url, request);
     }
 
@@ -223,16 +228,17 @@ class API {
 
     const response = await fetch(this.urlRefresh, request);
 
+    let accessToken = null;
     if (response.ok) {
       const body = await response.json();
-      const accessToken = body.access_token;
+      accessToken = body.access_token;
 
       store.dispatch(refresh(accessToken));
     } else { // If the token is expired then you should log the user out
       store.dispatch(logout);
     }
 
-    return response.ok;
+    return accessToken;
   }
 }
 
