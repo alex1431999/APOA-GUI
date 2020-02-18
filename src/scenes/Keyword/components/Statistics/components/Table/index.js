@@ -47,17 +47,21 @@ class Table extends React.Component {
   render() {
     return (
       <div className="Table">
-        <h2 className="title">{this.props.title}</h2>
-        <table className="table table-sm">
-          <thead>
-            <tr>
-              {this.tableHeaders()}
-            </tr>
-          </thead>
-          <tbody>
-            {this.tableData()}
-          </tbody>
-        </table>
+        <div className="conatiner">
+          <div className="jumbotron">
+            <h2 className="title">{this.props.title}</h2>
+            <table className="table table-sm">
+              <thead>
+                <tr>
+                  {this.tableHeaders()}
+                </tr>
+              </thead>
+              <tbody>
+                {this.tableData()}
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
     )
   }
