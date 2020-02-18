@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 
 import KeywordDetails from './components/KeywordDetails/index'
 import ScoreGraph from './components/ScoreGraph/index'
+import Statistics from './components/Statistics/index'
 
 import './styles.scss'
 
@@ -27,6 +28,8 @@ class Keyword extends React.Component {
             <KeywordDetails _id={this.state._id}></KeywordDetails>
             <br/>
             <ScoreGraph keywordId={this.state._id}></ScoreGraph>
+            <br/>
+            <Statistics _id={this.state._id}></Statistics>
           </div>
         </div>
       </div>
