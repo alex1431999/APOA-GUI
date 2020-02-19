@@ -103,6 +103,24 @@ class API {
     return plottingData;
   }
 
+  async getKeywordAvgScore(keywordId) {
+    const request = {
+      method: 'GET',
+      headers: this.headersDefault(),
+    }
+
+    const url = `${this.urlKeywords}/${keywordId}/score`;
+
+    const response = await this.sendRequest(url, request);
+
+    let score = null;
+    if (response.ok) {
+      score = response.json();
+    }
+
+    return score;
+  }
+
   async getLanguagesAvailable() {
     const request = {
       method: 'GET',
