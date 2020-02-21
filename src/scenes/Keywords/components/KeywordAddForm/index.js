@@ -7,7 +7,7 @@ class KeywordAddForm extends React.Component {
     super(props);
     this.state = {
       languages: [],
-      languageSelected: 'de',
+      languageSelected: '',
       keyword: '',
     }
 
@@ -21,7 +21,7 @@ class KeywordAddForm extends React.Component {
   setLanguages() {
     apiService.getLanguagesAvailable()
       .then((languages) => {
-        this.setState({languages})
+        this.setState({languages, languageSelected: languages[0]})
       });
   }
 
