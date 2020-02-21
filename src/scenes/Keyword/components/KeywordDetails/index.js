@@ -12,7 +12,7 @@ class KeywordDetails extends React.Component {
       status: 'loading',
       keyword: null,
       language: null,
-      score: null,
+      score: 0,
     }
 
     this.getData()
@@ -25,6 +25,7 @@ class KeywordDetails extends React.Component {
         })
       })
       .catch(() => {
+        console.log('errord');
         this.setState({
           status: 'failed',
         });
