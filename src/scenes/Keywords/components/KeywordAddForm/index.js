@@ -1,5 +1,6 @@
 import React from 'react'
 
+import notificationService from '../../../../services/notification/index'
 import apiService from '../../../../services/api/index'
 
 class KeywordAddForm extends React.Component {
@@ -27,6 +28,11 @@ class KeywordAddForm extends React.Component {
 
   handleButtonClick() {
     apiService.addKeyword(this.state.keyword, this.state.languageSelected);
+    notificationService.display(
+      'Keyword Added', 
+      `Added keyword ${this.state.keyword} (${this.state.languageSelected}).`, 
+      notificationService.types.default
+    );
   }
 
   handleSelectChange(event) {

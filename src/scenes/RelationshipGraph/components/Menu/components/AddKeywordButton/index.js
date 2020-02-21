@@ -1,6 +1,7 @@
 import React from 'react'
 import Select from 'react-select'
 
+import notificationService from '../../../../../../services/notification/index'
 import apiService from '../../../../../../services/api/index'
 import store from '../../../../../../store'
 
@@ -40,12 +41,22 @@ class AddKeywordButton extends React.Component {
 
   handleOnClickButton() {
     if (this.state.selectedKeyword == null) {
-      return alert('Please select a Keyword first.');
+      return notificationService.display(
+        'No Keyword Selected',
+        'Please Select a Keyword.',
+        notificationService.types.danger
+      );
     }
 
     const _id = this.state.selectedKeyword.value;
     
     this.props.addKeyword(_id);
+
+    notificationService.display(
+      'Keyword Added',
+      'Added Keyword to Graph.',
+      notificationService.types.default
+    );
   }
 
   handleOnKeyDownSelect(event) {

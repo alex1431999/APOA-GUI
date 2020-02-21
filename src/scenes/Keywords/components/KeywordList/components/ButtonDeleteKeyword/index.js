@@ -1,5 +1,6 @@
 import React from 'react'
 
+import notificationService from '../../../../../../services/notification/index'
 import apiService from '../../../../../../services/api/index'
 
 class ButtonDeleteKeyword extends React.Component {
@@ -11,6 +12,11 @@ class ButtonDeleteKeyword extends React.Component {
 
   handleButtonClick() {
     apiService.deleteKeyword(this.props._id);
+    notificationService.display(
+      'Keyword Removed',
+      'Successfully removed Keyword.',
+      notificationService.types.danger
+    );
   }
 
   render() {

@@ -1,6 +1,7 @@
 import React from 'react'
 import { withRouter } from 'react-router-dom'
 
+import notificationService from '../../../../services/notification/index'
 import apiService from '../../../../services/api/index'
 
 class FormField extends React.Component {
@@ -17,12 +18,37 @@ class FormField extends React.Component {
   }
 
   handleSubmit() {
+    if (this.state.username.length === 0) {
+      return notificationService.display(
+        'Empty Username',
+        'Please enter a Username first.',
+        notificationService.types.danger,
+      );
+    }
+
+    if (this.state.password.length === 0) {
+      return notificationService.display(
+        'Empty Password',
+        'Please enter a Password first.',
+        notificationService.types.danger,
+      );
+    }
+
     apiService.login(this.state.username, this.state.password)
       .then(() => {
         this.props.history.push('/keywords/');
+        notificationService.display(
+          'Login Successful',
+          'You have logged in successfully!',
+          notificationService.types.default,
+        );
       })
       .catch(() => {
-        alert('Wrong password / username');
+        notificationService.display(
+          'Login Failed',
+          'Wrong Password/Username.',
+          notificationService.types.danger,
+        );
       });
   }
 
