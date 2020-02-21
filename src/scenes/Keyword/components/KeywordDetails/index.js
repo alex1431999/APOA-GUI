@@ -9,7 +9,6 @@ class KeywordDetails extends React.Component {
     super(props);
 
     this.state = {
-      status: 'loading',
       keyword: null,
       language: null,
       score: 0,
@@ -18,17 +17,10 @@ class KeywordDetails extends React.Component {
     this.getData()
       .then(({ keyword, score }) => {
         this.setState({
-          status: 'success',
           keyword: keyword.keyword_string,
           language: keyword.language,
           score,
         })
-      })
-      .catch(() => {
-        console.log('errord');
-        this.setState({
-          status: 'failed',
-        });
       });
   }
 
@@ -37,9 +29,15 @@ class KeywordDetails extends React.Component {
     const scoreRequest = apiService.getKeywordAvgScore(this.props._id);
 
     const keyword = await keywordRequest;
-    const score = await scoreRequest;
+    let score = await scoreRequest;
 
-    return { keyword, score: score.toFixed(3) };
+    if (score) {
+      score = score.toFixed(3);
+    } else {
+      score = 'no score yet.';
+    }
+
+    return { keyword, score };
   }
 
   render() {
