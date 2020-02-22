@@ -61,11 +61,10 @@ class Statistics extends React.Component {
 
     if (this.state.entityTableRender) {
       const table = (
-        <div id="entityTable">
+        <div id="entityTable" key='entityTable'>
           <Table
             data={this.state.entities}
             title='Most Relevant Entities'
-            key='entityTable'
           ></Table>
         </div>
       )
@@ -76,11 +75,10 @@ class Statistics extends React.Component {
 
     if (this.state.categoryTableRender) {
       const table = (
-        <div id="categoryTable">
+        <div id="categoryTable" key='categoryTable'>
           <Table
             data={this.state.categories}
             title='Most Relevant Categories'
-            key='categoryTable'
           ></Table>
         </div>
       )

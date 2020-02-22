@@ -28,7 +28,10 @@ class Keyword extends React.Component {
             <KeywordDetails _id={this.state._id}></KeywordDetails>
             <br/>
             <ScoreGraph keywordId={this.state._id}></ScoreGraph>
-            <Statistics _id={this.state._id}></Statistics>
+            <Statistics 
+              _id={this.state._id} 
+              key={this.state._id}>
+            </Statistics>
           </div>
         </div>
       </div>
