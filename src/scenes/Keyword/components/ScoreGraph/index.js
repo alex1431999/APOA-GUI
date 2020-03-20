@@ -66,7 +66,20 @@ class ScoreGraph extends React.Component {
       plottingDataAccumulated.forEach((point) => plottingDataFormatted[point.timestamp] = point.score);
 
       /* Plot graph */
-      const graph = <LineChart round={2} min={-1} max={1} xtitle="Timestamp" ytitle="Sentiment" data={plottingDataFormatted}></LineChart>
+      const graph = (
+        <div>
+          <h2>Datapoints found: {this.state.plottingData.length}</h2>
+          <LineChart 
+            round={2} 
+            min={-1} 
+            max={1} 
+            xtitle="Timestamp" 
+            ytitle="Sentiment" 
+            data={plottingDataFormatted}>
+
+          </LineChart>
+        </div>
+      )
       content = graph;
     }
 
