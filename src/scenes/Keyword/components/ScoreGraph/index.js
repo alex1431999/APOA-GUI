@@ -68,7 +68,7 @@ class ScoreGraph extends React.Component {
       /* Plot graph */
       const graph = (
         <div>
-          <h2>Datapoints found: {this.state.plottingData.length}</h2>
+          <p className="float-right">Datapoints found: {this.state.plottingData.length}</p>
           <LineChart 
             round={2} 
             min={-1} 

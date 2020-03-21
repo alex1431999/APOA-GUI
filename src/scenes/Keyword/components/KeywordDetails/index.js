@@ -4,6 +4,8 @@ import BasicLoader from '../../../../components/BasicLoader/index'
 
 import apiService from '../../../../services/api/index'
 
+import './styles.scss'
+
 class KeywordDetails extends React.Component {
   constructor(props) {
     super(props);
@@ -44,7 +46,7 @@ class KeywordDetails extends React.Component {
   const details = (
     <div>
       <h1>{this.state.keyword} ({this.state.language})</h1>
-      <h2>Average Score: {this.state.score}</h2>
+      <p id="averageScore" className="float-left">Average Score: {this.state.score}</p>
     </div>
   )
 
