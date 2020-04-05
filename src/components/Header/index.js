@@ -24,7 +24,9 @@ function Header() {
 
   return (
     <div className="Header">
-      <Link className="btn btn-warning header-center" to="/">Home</Link>
+      <Link to="/">
+        <img alt="logo" width="7%" height="7%" src={require("../../logo.png")}></img>
+      </Link>
       <UsernameDisplay/>
     </div>
   )
