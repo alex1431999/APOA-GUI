@@ -1,6 +1,8 @@
 import React from 'react'
 import Modal from 'react-modal';
 
+import './styles.scss'
+
 const customStyles = {
   content : {
     top                   : '50%',
@@ -9,6 +11,7 @@ const customStyles = {
     bottom                : 'auto',
     marginRight           : '-50%',
     transform             : 'translate(-50%, -50%)',
+    background            : '#ffa500'
   }
 };
 
@@ -29,16 +32,22 @@ class ModalTextSnippets extends React.Component {
     return (
       <div className="Modal">
         <Modal
+          id="snippetModal"
           isOpen={true}
           style={customStyles}
         >
-          <ul>
-            <li>
+          <ul className="list-group">
+            <li className="list-group-item list-group-item-warning">
               test
             </li>
           </ul>
 
-          <button className="btn btn-warning" onClick={this.handleButtonClick}>Close</button>
+          <button 
+            id="modalBtn" 
+            className="btn btn-warning" 
+            onClick={this.handleButtonClick}>
+              Close
+          </button>
         </Modal>
       </div>
     )
