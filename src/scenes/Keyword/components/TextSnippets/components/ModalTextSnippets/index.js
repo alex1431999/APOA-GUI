@@ -62,13 +62,20 @@ class ModalTextSnippets extends React.Component {
       const listItems = this.state.snippets.map((snippet, index) => {
         return (
           <li className="list-group-item list-group-item-warning" key={index}>
+            <span className="snippetScore">
+              {snippet.score.toFixed(1)}
+            </span>
+            <span className="float-right snippetTimestamp">
+              {snippet.timestamp.replace('T', ' ')}
+            </span>
+            <br/>
             {snippet.text}
           </li>
         )
       })
 
       snippetList = (
-        <ul className="list-group">
+        <ul className="list-group snippetList">
           {listItems}
         </ul>
       )
@@ -83,6 +90,7 @@ class ModalTextSnippets extends React.Component {
           isOpen={true}
           style={customStyles}
         >
+  
           {snippetList}
 
           <button 
