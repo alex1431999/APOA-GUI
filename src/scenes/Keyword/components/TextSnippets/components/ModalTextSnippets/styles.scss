@@ -1,0 +1,24 @@
+.snippetList {
+  overflow: scroll;
+  height: 80%;
+}
+
+.snippetTimestamp {
+  color: blue;
+}
+
+.snippetScore {
+  color: blue;
+}
+
+#snippetModal {
+  height: 50%;
+  width: 50%;
+  position: relative;
+}
+
+#modalBtn {
+  position: absolute;
+  right: 15px;
+  bottom: 15px;
+}

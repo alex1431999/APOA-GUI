@@ -173,6 +173,24 @@ class API {
     return categories;
   }
 
+  async getTextSnippets(keywordId) {
+    const request = {
+      method: 'GET',
+      headers: this.headersDefault(),
+    }
+
+    const url = `${this.urlKeywords}/${keywordId}/snippets`;
+
+    const response = await this.sendRequest(url, request);
+
+    let snippets = [];
+    if (response.ok) {
+      snippets = await response.json();
+    }
+
+    return snippets;  
+  }
+
   headersDefault() {
     return {
       'Content-Type': 'application/json',
