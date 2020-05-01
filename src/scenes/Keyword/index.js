@@ -25,7 +25,7 @@ class Keyword extends React.Component {
       <div id="Keyword" className="Keywords">
         <div className="container">
           <div className="jumbotron">
-            <TextSnippets></TextSnippets>
+            <TextSnippets _id={this.state._id} ></TextSnippets>
             <Link className="btn btn-warning" to={`/keywords/${this.state._id}/graph`}>Show Graph</Link>
             <KeywordDetails _id={this.state._id}></KeywordDetails>
             <ScoreGraph keywordId={this.state._id}></ScoreGraph>

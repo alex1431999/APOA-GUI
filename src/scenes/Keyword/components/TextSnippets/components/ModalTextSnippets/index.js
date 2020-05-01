@@ -1,6 +1,9 @@
 import React from 'react'
 import Modal from 'react-modal';
 
+import apiService from '../../../../../../services/api/index'
+import BasicLoader from '../../../../../../components/BasicLoader/index'
+
 import './styles.scss'
 
 const customStyles = {
@@ -21,7 +24,29 @@ class ModalTextSnippets extends React.Component {
 
     Modal.setAppElement('#Keyword');
 
+    this.state = {
+      snippets: [],
+      status: 'loading'
+    }
+
+    this.requestSnippets = this.requestSnippets.bind(this);
     this.handleButtonClick = this.handleButtonClick.bind(this);
+
+    this.requestSnippets();
+  }
+
+  requestSnippets() {
+    const request = apiService.getTextSnippets(this.props._id);
+
+    request
+     .then(snippets => {
+       snippets = snippets.filter(element => 'score' in element);
+       this.setState({ snippets, status: 'success' });
+     })
+     .catch(err => {
+       console.log(err);
+       this.setState({ status: 'failed' })
+     });
   }
 
   handleButtonClick() {
@@ -29,6 +54,28 @@ class ModalTextSnippets extends React.Component {
   }
 
   render() {
+    let snippetList = null;
+
+    if (this.state.status === 'loading') {
+      snippetList = <BasicLoader></BasicLoader>
+    } else if (this.state.status === 'success') {
+      const listItems = this.state.snippets.map((snippet, index) => {
+        return (
+          <li className="list-group-item list-group-item-warning" key={index}>
+            {snippet.text}
+          </li>
+        )
+      })
+
+      snippetList = (
+        <ul className="list-group">
+          {listItems}
+        </ul>
+      )
+    } else if (this.state.status === 'failed') {
+      snippetList = 'Failed to load snippets';
+    }
+
     return (
       <div className="Modal">
         <Modal
@@ -36,11 +83,7 @@ class ModalTextSnippets extends React.Component {
           isOpen={true}
           style={customStyles}
         >
-          <ul className="list-group">
-            <li className="list-group-item list-group-item-warning">
-              test
-            </li>
-          </ul>
+          {snippetList}
 
           <button 
             id="modalBtn" 

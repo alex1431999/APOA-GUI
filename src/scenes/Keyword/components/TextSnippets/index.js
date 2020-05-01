@@ -25,6 +25,7 @@ class TextSnippets extends React.Component {
       modal = (
         <ModalTextSnippets
           triggerModal={this.triggerModal}
+          _id={this.props._id}
         >
 
         </ModalTextSnippets>)
