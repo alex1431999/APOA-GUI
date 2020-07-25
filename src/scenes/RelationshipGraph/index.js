@@ -1,6 +1,6 @@
 import React from 'react'
 
-import Graph from './components/Graph/index'
+import Graph from './components/graph/index'
 import Menu from './components/Menu/index'
 
 import apiService from '../../services/api/index'
