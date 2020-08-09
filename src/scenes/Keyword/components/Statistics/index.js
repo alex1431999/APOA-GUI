@@ -31,11 +31,11 @@ class Statistics extends React.Component {
   async requestEntities() {
     const data = await apiService.getEntities(this.props._id, this.state.entityLimit);
     
-    const entities = data.map((dataPoint) => {
+    const entities = data.map((entity) => {
       return { 
-        'Entity': dataPoint.entity.entity_string, 
-        'Count': dataPoint.mentionedWith.count,
-        'Score': dataPoint.mentionedWith.score.toFixed(3),
+        'Entity': entity.value,
+        'Count': entity.count,
+        'Score': entity.score.toFixed(3),
       }
     });
 
@@ -45,11 +45,11 @@ class Statistics extends React.Component {
   async requestCategories() {
     const data = await apiService.getCategories(this.props._id, this.state.categoryLimit);
 
-    const categories = data.map((dataPoint) => {
+    const categories = data.map((category) => {
       return {
-        'Category': dataPoint.category.category_string,
-        'Count': dataPoint.mentionedWith.count,
-        'Confidence': dataPoint.mentionedWith.confidence.toFixed(3),
+        'Category': category.value,
+        'Count': category.count,
+        'Confidence': category.confidence.toFixed(3),
       }
     }); 
 

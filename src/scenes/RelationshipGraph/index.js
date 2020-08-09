@@ -40,10 +40,6 @@ class RelationshipGraph extends React.Component {
     const entities = await entitiesRequest;
     const categories = await categoriesRequest;
 
-    /* Remove keyword from entities and categories */
-    entities.forEach(entitiy => delete entitiy.keyword);
-    categories.forEach(category => delete category.keyword);
-
     keyword.entities = entities;
     keyword.categories = categories;
 

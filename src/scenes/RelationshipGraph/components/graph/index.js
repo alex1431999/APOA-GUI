@@ -29,15 +29,15 @@ class Graph extends React.Component {
 
       const keywordNode = this.addKeyword(keyword);
 
-      keyword.entities.forEach(({ entity, mentionedWith}) => {
-        const { score, count } = mentionedWith;
-        const entityNode = this.addEntity(entity, count, score);
+      keyword.entities.forEach((entity) => {
+        const { value, score, count } = entity;
+        const entityNode = this.addEntity(value, count, score);
         this.createLink(keywordNode.id, entityNode.id, score);
       });
 
-      keyword.categories.forEach(({ category, mentionedWith }) => {
-        const { count } = mentionedWith;
-        const categoryNode = this.addCategory(category, count);
+      keyword.categories.forEach((category) => {
+        const { value, count } = category;
+        const categoryNode = this.addCategory(value, count);
         this.createLink(keywordNode.id, categoryNode.id, 1);
       });
     }
@@ -56,10 +56,10 @@ class Graph extends React.Component {
     return node;
   }
 
-  addEntity(entity, count, score) {
+  addEntity(value, count, score) {
     const node = {
-      id: entity.entity_string,
-      name: entity.entity_string,
+      id: value,
+      name: value,
       val: count,
       color: score > 0 ? '00ff00' : 'ff0000',
     };
@@ -69,10 +69,10 @@ class Graph extends React.Component {
     return node;
   }
 
-  addCategory(category, count) {
+  addCategory(value, count) {
     const node = {
-      id: category.category_string,
-      name: category.category_string,
+      id: value,
+      name: value,
       val: count,
       color: 'ffff00',
     };
